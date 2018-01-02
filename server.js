@@ -13,10 +13,6 @@ var dbConfig = require('./config/database.config.js');
     mongoose = require('mongoose');
     mongoose.connect(dbConfig.url);
 
-/*mongoose.connect(dbConfig.url);
-useMongoClient: true
-}
-
 mongoose.connection.on('error', function(){
     console.log('no se pudo conectar a la base de datos. Cerrando...');
     process.exit();
@@ -24,15 +20,6 @@ mongoose.connection.on('error', function(){
 
 mongoose.connection.once('open', function(){
     console.log('conectado con exito a la base de datos');
-}) */
-
-mongoose.connection.on('error', function() {
-    console.log('Could not connect to the database. Exiting now...');
-    process.exit();
-});
-
-mongoose.connection.once('open', function() {
-    console.log("Successfully connected to the database");
 })
 
 //defino una ruta simple
@@ -40,6 +27,9 @@ mongoose.connection.once('open', function() {
 app.get('/', function(req, res){
     res.json({"mensaje": "Bienvenidos a GLunNotas"})
 });
+
+//requiere las rutas de las notas
+require('./app/routes/note.routes.js')(app);
 
 //escucha pedidos
 app.listen(3000, function(){
