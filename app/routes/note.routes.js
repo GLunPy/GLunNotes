@@ -4,6 +4,9 @@ module.exports = function(app) {
     app.post('/notes', notes.create);
 
     //Muestra todas las notas
+    app.get('/notes', notes.findAll);
+
+    //Muestra cada nota por id
     app.get('/notes/:noteId', notes.findOne);
 
     //actualizarr una note con el ID
